@@ -192,11 +192,6 @@ const Header = ({
   };
 
   return (
-    // ... your JSX where you use authPhone, handleLoginClick, and phoneError
-  );
-};
-
-  return (
     <header className="fixed top-0 left-0 w-full z-50 bg-nigerian-green dark:bg-slate-900 text-white border-b-4 border-nigerian-gold px-4 md:px-8 py-4 flex justify-between items-center h-20 transition-colors">
       <div className="flex items-center gap-3">
         <div className="bg-white dark:bg-slate-800 p-2 rounded-lg text-nigerian-green dark:text-nigerian-gold font-bold text-xl flex items-center justify-center w-10 h-10 shadow-sm transition-colors">₦</div>
