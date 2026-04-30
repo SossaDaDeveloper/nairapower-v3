@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-nigerian-green: #008751;
+  --color-nigerian-gold: #D4AF37;
+  --color-nigerian-accent: #006039;
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Explicitly define the dark variant for class-based toggling */
+@variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    @apply bg-gray-100 text-gray-900 dark:bg-slate-950 dark:text-slate-100 transition-colors duration-500;
+  }
+}
+
+@layer components {
+  .card-sleek {
+    @apply bg-white dark:bg-slate-900 dark:border dark:border-slate-800 rounded-[12px] shadow-[0_4px_6px_-1px_rgba(0,0,0,0.1)] transition-colors duration-300;
+  }
+}
