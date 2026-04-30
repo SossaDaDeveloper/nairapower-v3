@@ -333,12 +333,7 @@ const App = () => {
   const [isStreaming, setIsStreaming] = useState(false);
 
   // AI Advisor Initialization
-<<<<<<< HEAD
   const ai = useMemo(() => new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY }), []);
-=======
-  const ai = useMemo(() => new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY }), []);
-
->>>>>>> a2c9e6158310af0c205f14f0f9076cf9b23bcd09
   // Update AI greeting on language change
   useEffect(() => {
     setChatMessages([
