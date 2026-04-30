@@ -236,15 +236,7 @@ const Header = ({
           </div>
         </div>
 
-        <div className="hidden lg:flex items-center gap-3 bg-white/10 px-4 py-2 rounded-xl ring-1 ring-white/20">
-          <label className="text-[10px] font-black uppercase tracking-widest cursor-pointer select-none">{t('pro_mode')}</label>
-          <button 
-            onClick={() => setIsProMode(!isProMode)}
-            className={`w-10 h-5 rounded-full relative transition-colors ${isProMode ? 'bg-nigerian-gold' : 'bg-white/20'}`}
-          >
-            <div className={`absolute top-1 w-3 h-3 bg-white rounded-full transition-all ${isProMode ? 'left-6' : 'left-1'}`} />
-          </button>
-        </div>
+        
         <div className="hidden md:block text-right">
           <p className="text-[10px] opacity-80 uppercase font-black tracking-widest leading-none mb-1">{t('current_source')}</p>
           <p className="font-bold text-nigerian-gold text-sm">{t(selectedSource.nameKey)}</p>
@@ -875,14 +867,6 @@ const App = () => {
                   </div>
                 </div>
 
-                <div className="bg-nigerian-gold/5 p-6 rounded-2xl border border-nigerian-gold/10 dark:bg-nigerian-gold/10 dark:border-nigerian-gold/20">
-                   <div className="flex gap-4 items-start">
-                      <AlertCircle className="w-5 h-5 text-nigerian-gold mt-1" />
-                      <p className="text-sm font-bold text-slate-600 dark:text-slate-300 italic">
-                        {t('audit_disclaimer', { hours: (sourceHours.reduce((a, b) => a + b, 0) / 7).toFixed(1) })}
-                      </p>
-                   </div>
-                </div>
               </div>
 
               <div className="pt-6">
@@ -1298,214 +1282,6 @@ const App = () => {
                 </aside>
               </div>
 
-              {/* Industry & Pro Mode Features */}
-              {isProMode && (
-                <motion.div 
-                  initial={{ opacity: 0, y: 30 }} 
-                  animate={{ opacity: 1, y: 0 }} 
-                  className="space-y-12 mt-12"
-                >
-                  {/* Market Intelligence Hub (For Energy/Petroleum Firms) */}
-                  <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[3rem] border-4 border-nigerian-gold shadow-2xl relative overflow-hidden ring-8 ring-nigerian-gold/5 transition-colors">
-                    <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none transform translate-x-1/4 -translate-y-1/4">
-                      <ShieldCheck className="w-96 h-96 text-nigerian-gold" />
-                    </div>
-
-                    <div className="relative z-10">
-                      <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 mb-10 pb-8 border-b border-slate-100 dark:border-slate-800">
-                        <div className="flex items-center gap-5">
-                          <div className="w-16 h-16 bg-slate-900 text-white rounded-[2rem] flex items-center justify-center shadow-xl transform rotate-3">
-                            <TrendingDown className="w-8 h-8 text-nigerian-gold" />
-                          </div>
-                          <div>
-                            <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase">{t('market_intelligence')}</h3>
-                            <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] font-black">{t('pro_insights')}</p>
-                          </div>
-                        </div>
-                        <div className="flex gap-3">
-                           <button 
-                             onClick={() => alert('Industry Master Sync Completed: 42 new audit nodes registered in your sector.')}
-                             className="bg-slate-900 dark:bg-slate-800 text-white px-6 py-3 rounded-2xl text-[10px] font-black uppercase tracking-widest hover:scale-105 transition-all flex items-center gap-2"
-                           >
-                              <Cloud className="w-4 h-4" /> {t('global_sync')}
-                           </button>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-                        {/* Grid relief stats */}
-                        <div className="bg-slate-50 dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 flex flex-col items-center text-center">
-                           <div className="w-12 h-12 bg-nigerian-green/10 text-nigerian-green rounded-2xl flex items-center justify-center mb-6">
-                              <Zap className="w-6 h-6" />
-                           </div>
-                           <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{t('grid_relief_potential')}</h4>
-                           <h3 className="text-5xl font-black text-slate-900 dark:text-white tracking-tight mb-2">
-                             {totals.gridReliefAmps.toFixed(1)} <span className="text-lg text-nigerian-green font-black">Amps</span>
-                           </h3>
-                           <p className="text-[11px] font-bold text-slate-500 dark:text-slate-400 leading-relaxed">
-                               {t('capacity_reclaimable')} <span className="text-slate-900 dark:text-slate-200">{auditorInfo.lga || 'Current Sector'}</span>.
-                           </p>
-                        </div>
-
-                        {/* Petroleum Sector stats */}
-                        <div className="bg-slate-900 dark:bg-slate-950 text-white p-8 rounded-[2rem] border border-white/5 flex flex-col items-center text-center relative overflow-hidden">
-                           <div className="relative z-10 w-full">
-                              <div className="w-12 h-12 bg-nigerian-gold text-white rounded-2xl flex items-center justify-center mb-6 mx-auto">
-                                <TrendingDown className="w-6 h-6" />
-                              </div>
-                              <h4 className="text-[10px] font-black text-nigerian-gold uppercase tracking-widest mb-2">{t('fuel_displacement')}</h4>
-                              
-                              {(selectedSource.id === 'petrol' || selectedSource.id === 'diesel') ? (
-                                <div className="space-y-4">
-                                   <div className="text-4xl font-black text-white tracking-tight">
-                                      ₦{(totals.monthlySpend * 0.4).toLocaleString(undefined, { maximumFractionDigits: 0 })} <span className="text-sm">/ {t('save')}</span>
-                                   </div>
-                                   <p className="text-[11px] font-bold text-white/50 leading-relaxed">
-                                      Available monthly savings if facility switches to a CNG Gas-to-Power hub.
-                                   </p>
-                                </div>
-                              ) : (
-                                <p className="text-[11px] font-bold text-white/40 italic uppercase mt-4">Grid-Focus: Low Fuel Displacement Priority</p>
-                              )}
-                           </div>
-                        </div>
-
-                        {/* Community Map Data */}
-                        <div className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-8 rounded-[2rem] shadow-sm">
-                           <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-6 flex items-center gap-2">
-                             <Globe className="w-4 h-4" /> {t('community_trends')}
-                           </h4>
-                           <div className="space-y-4">
-                              {[
-                                { lga: auditorInfo.lga || 'Your LGA', waste: ((totals.monthlyWaste / (totals.monthlySpend || 1)) * 100).toFixed(0), trend: 'up' },
-                                { lga: 'Aba North', waste: '42', trend: 'down' },
-                                { lga: 'Ikeja Industrial', waste: '28', trend: 'down' }
-                              ].map((trend, i) => (
-                                <div key={i} className="flex justify-between items-center bg-slate-50 dark:bg-slate-800 p-3 rounded-xl border border-transparent dark:border-slate-700">
-                                   <span className="text-[11px] font-black uppercase text-slate-800 dark:text-slate-200">{trend.lga}</span>
-                                   <div className="flex items-center gap-3">
-                                      <span className="text-xs font-black text-slate-900 dark:text-white">{trend.waste}% Waste</span>
-                                      <div className={`w-2 h-2 rounded-full ${trend.trend === 'up' ? 'bg-red-500' : 'bg-nigerian-green'}`}></div>
-                                   </div>
-                                </div>
-                              ))}
-                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Auditor Professional Portal (Student / Consultant View) */}
-                  <div className="bg-white dark:bg-slate-900 p-8 md:p-12 rounded-[3rem] border-4 border-slate-900 dark:border-slate-800 shadow-2xl relative overflow-hidden transition-colors">
-                    <div className="absolute top-0 right-0 p-12 opacity-[0.03] pointer-events-none transform translate-x-1/4 -translate-y-1/4">
-                      <Briefcase className="w-96 h-96 text-slate-900 dark:text-slate-100" />
-                    </div>
-
-                    <div className="relative z-10">
-                      <div className="flex items-center gap-6 mb-10 pb-8 border-b border-slate-100 dark:border-slate-800">
-                        <div className="w-16 h-16 bg-nigerian-gold text-white rounded-[2rem] flex items-center justify-center shadow-xl transform -rotate-3">
-                          <CheckCircle2 className="w-8 h-8" />
-                        </div>
-                        <div>
-                          <h3 className="text-3xl font-black text-slate-900 dark:text-white tracking-tighter uppercase">{t('student_portal')}</h3>
-                          <p className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-[0.3em] font-black">{t('verified_portfolio')}</p>
-                        </div>
-                      </div>
-
-                      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10">
-                        {/* Meta Data Inputs */}
-                        <div className="lg:col-span-4 space-y-6">
-                           <div className="bg-slate-50 dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 space-y-6">
-                              <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest flex items-center gap-2">
-                                <Database className="w-4 h-4" /> {t('audit_metadata')}
-                              </h4>
-                              <div className="space-y-4">
-                                <div className="space-y-1">
-                                  <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase ml-2">Auditor Name</label>
-                                  <input 
-                                    type="text"
-                                    placeholder="e.g. Chinelo Obi"
-                                    value={auditorInfo.name}
-                                    onChange={(e) => setAuditorInfo(prev => ({ ...prev, name: e.target.value }))}
-                                    className="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl text-sm font-bold focus:border-nigerian-gold outline-none transition-all dark:text-white"
-                                  />
-                                </div>
-                                <div className="space-y-1">
-                                  <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase ml-2">Business Name</label>
-                                  <input 
-                                    type="text"
-                                    placeholder="e.g. Mama Put Ventures"
-                                    value={auditorInfo.business}
-                                    onChange={(e) => setAuditorInfo(prev => ({ ...prev, business: e.target.value }))}
-                                    className="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl text-sm font-bold focus:border-nigerian-gold outline-none transition-all dark:text-white"
-                                  />
-                                </div>
-                                <div className="space-y-1">
-                                  <label className="text-[9px] font-black text-slate-400 dark:text-slate-500 uppercase ml-2">LGA / Region</label>
-                                  <input 
-                                    type="text"
-                                    placeholder="e.g. Ikeja, Lagos"
-                                    value={auditorInfo.lga}
-                                    onChange={(e) => setAuditorInfo(prev => ({ ...prev, lga: e.target.value }))}
-                                    className="w-full bg-white dark:bg-slate-900 border-2 border-slate-200 dark:border-slate-700 px-4 py-3 rounded-xl text-sm font-bold focus:border-nigerian-gold outline-none transition-all dark:text-white"
-                                  />
-                                </div>
-                              </div>
-                              <div className="pt-6 border-t border-slate-200 dark:border-slate-700 flex justify-between items-center">
-                                 <div>
-                                    <p className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase">{t('sabi_points')}</p>
-                                    <p className="text-3xl font-black text-nigerian-gold">{selectedAppliances.length * 10}</p>
-                                 </div>
-                                 <div className="w-12 h-12 bg-nigerian-gold text-white rounded-2xl flex items-center justify-center shadow-lg">
-                                    <ShieldCheck className="w-6 h-6" />
-                                 </div>
-                              </div>
-                           </div>
-                        </div>
-
-                        {/* Summary Info / Action */}
-                        <div className="lg:col-span-8 space-y-8">
-                           <div className="bg-slate-50 dark:bg-slate-800 p-8 rounded-[2rem] border border-slate-100 dark:border-slate-700 flex items-center gap-8">
-                              <div className="flex-1">
-                                 <h4 className="text-[10px] font-black text-slate-400 dark:text-slate-500 uppercase tracking-widest mb-2">{t('portfolio_readiness')}</h4>
-                                 <p className="text-sm font-bold text-slate-600 dark:text-slate-300 leading-relaxed italic">
-                                   {t('auditor_greeting', { name: auditorInfo.name || 'Sabi Auditor', qty: selectedAppliances.length, business: auditorInfo.business || 'your client', amps: totals.gridReliefAmps.toFixed(1) })}
-                                 </p>
-                              </div>
-                              <div className="flex flex-col gap-3">
-                                 <button 
-                                   onClick={() => alert(`Aggregated Data Exported for ${auditorInfo.lga}`)}
-                                   className="bg-white dark:bg-slate-900 border-2 border-slate-900 dark:border-slate-800 text-slate-900 dark:text-white p-4 rounded-2xl flex flex-col items-center gap-2 hover:bg-slate-50 dark:hover:bg-slate-800 transition-all shadow-sm"
-                                 >
-                                    <FileJson className="w-5 h-5 mx-auto" />
-                                    <span className="text-[9px] font-black uppercase">Export CSV</span>
-                                 </button>
-                                 <button 
-                                   onClick={() => alert('Syncing to National Energy Registry...')}
-                                   className="bg-slate-900 dark:bg-slate-950 text-white p-4 rounded-2xl flex flex-col items-center gap-2 hover:scale-105 transition-all shadow-xl"
-                                 >
-                                    <Cloud className="w-5 h-5 mx-auto" />
-                                    <span className="text-[9px] font-black uppercase tracking-widest">{t('national_registry')}</span>
-                                 </button>
-                              </div>
-                           </div>
-
-                           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                              <div className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-6 rounded-2xl">
-                                 <h5 className="text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 tracking-widest">{t('market_comparison')}</h5>
-                                 <p className="text-xs font-bold text-slate-500 dark:text-slate-400">This business has a waste factor of <span className="text-red-500">{((totals.monthlyWaste / (totals.monthlySpend || 1)) * 100).toFixed(0)}%</span>, which is {(totals.monthlyWaste / (totals.monthlySpend || 1)) > 0.3 ? 'higher' : 'lower'} than the state average.</p>
-                              </div>
-                              <div className="bg-white dark:bg-slate-900 border-2 border-slate-100 dark:border-slate-800 p-6 rounded-2xl">
-                                 <h5 className="text-[10px] font-black text-slate-400 dark:text-slate-500 mb-4 tracking-widest">{t('next_recommended_step')}</h5>
-                                 <p className="text-xs font-bold text-slate-500 dark:text-slate-400">Conduct a structural insulation audit for {auditorInfo.business || 'the client'} to reduce AC load by a further 15%.</p>
-                              </div>
-                           </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
 
               {/* Tips & System Status */}
               <footer className="pt-8 border-t border-gray-200 dark:border-slate-800 mt-12 flex flex-col md:flex-row justify-between items-center gap-4 text-[10px] font-black text-gray-400 dark:text-slate-600 uppercase tracking-widest">
@@ -1622,41 +1398,7 @@ const App = () => {
          </AnimatePresence>
       </div>
 
-      {/* Simulated Nudge Pop-up */}
-      <AnimatePresence>
-        {showNudge && (
-          <motion.div 
-            initial={{ opacity: 0, scale: 0.9, y: 50 }}
-            animate={{ opacity: 1, scale: 1, y: 0 }}
-            exit={{ opacity: 0, scale: 0.9, y: 50 }}
-            className="fixed bottom-8 right-8 z-[100] max-w-sm w-full"
-          >
-            <div className="bg-slate-900 dark:bg-slate-950 text-white p-8 rounded-2xl shadow-2xl border border-white/10 ring-1 ring-white/20">
-               <div className="flex justify-between items-start mb-6">
-                  <div className="p-3 bg-red-500 rounded-xl ring-4 ring-red-500/20">
-                     <AlertCircle className="w-7 h-7 text-white" />
-                  </div>
-                  <button onClick={() => setShowNudge(false)} className="text-white/20 hover:text-white transition-colors">
-                     <Plus className="w-6 h-6 rotate-45" />
-                  </button>
-               </div>
-               <h3 className="text-2xl font-black mb-3 tracking-tighter">{t('nudge_peak_alert')} 🇳🇬</h3>
-               <p className="text-sm text-white/70 dark:text-white/60 leading-relaxed font-bold tracking-tight">
-                  {nudgeData?.hasFreezer 
-                    ? t('peak_protection')
-                    : t('high_demand')} 
-                  {t('nudge_content', { appliance: nudgeData?.applianceName, saving: nudgeData?.saving })}
-               </p>
-               <button 
-                  onClick={() => { setShowNudge(false); }}
-                  className="mt-8 w-full py-4 bg-white dark:bg-slate-100 text-slate-900 rounded-xl font-black text-sm uppercase tracking-widest hover:bg-slate-100 dark:hover:bg-white transition-all shadow-lg active:scale-95"
-               >
-                  {t('nudge_off_btn')}
-               </button>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+     
     </div>
   );
 };
