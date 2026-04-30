@@ -141,8 +141,26 @@ const UPGRADES = [
 
 // --- Components ---
 
-const Header = ({ selectedSource, isProMode, setIsProMode, auditType, isDarkMode, setIsDarkMode }: { selectedSource: any, isProMode: boolean, setIsProMode: (v: boolean) => void, auditType: string, isDarkMode: boolean, setIsDarkMode: (v: boolean) => void }) => {
+const Header = ({ 
+  selectedSource, 
+  isProMode, 
+  setIsProMode, 
+  auditType, 
+  isDarkMode, 
+  setIsDarkMode 
+}: { 
+  selectedSource: any, 
+  isProMode: boolean, 
+  setIsProMode: (v: boolean) => void, 
+  auditType: string, 
+  isDarkMode: boolean, 
+  setIsDarkMode: (v: boolean) => void 
+}) => {
   const { t, i18n } = useTranslation();
+
+  // --- Phone Validation State ---
+  const [authPhone, setAuthPhone] = useState<string>('');
+  const [phoneError, setPhoneError] = useState<boolean>(false);
 
   const languages = [
     { code: 'en', name: 'English' },
@@ -155,6 +173,28 @@ const Header = ({ selectedSource, isProMode, setIsProMode, auditType, isDarkMode
   const changeLanguage = (lng: string) => {
     i18n.changeLanguage(lng);
   };
+
+  // --- Validation Logic ---
+  const validateNigerianNumber = (number: string) => {
+    // Strips spaces/hyphens and checks for: 070..., 080..., 090..., 234..., or +234...
+    const regex = /^(?:\+234|234|0)[789]\d{9}$/;
+    return regex.test(number.replace(/\s+/g, ''));
+  };
+
+  const handleLoginClick = () => {
+    if (validateNigerianNumber(authPhone)) {
+      setPhoneError(false);
+      // Ensure handleAuth is defined in this scope or passed as a prop
+      handleAuth('login');
+    } else {
+      setPhoneError(true);
+    }
+  };
+
+  return (
+    // ... your JSX where you use authPhone, handleLoginClick, and phoneError
+  );
+};
 
   return (
     <header className="fixed top-0 left-0 w-full z-50 bg-nigerian-green dark:bg-slate-900 text-white border-b-4 border-nigerian-gold px-4 md:px-8 py-4 flex justify-between items-center h-20 transition-colors">
@@ -608,7 +648,7 @@ const App = () => {
           
           <div className="pt-6 border-t border-slate-100 dark:border-slate-800 text-center">
             <p className="text-[10px] font-bold text-slate-400 dark:text-slate-600 uppercase tracking-widest">
-              Built for Nigeria • Hackathon MVP 2026
+              Nexux 3.0 Hackathon - The Builders Circle
             </p>
           </div>
         </div>
