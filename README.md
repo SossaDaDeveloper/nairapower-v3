@@ -1,20 +1,30 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://github.com/user-attachments/assets/0aa67016-6eaf-458a-adb2-6e31a0763ed6" />
-</div>
+# NairaPower
 
-# Run and deploy your AI Studio app
+NairaPower is a web app that helps consumers of energy in Nigeria, like SMEs, and home know how much they spend on energy in a month, analyzing how much each appliances they own cost them based on their main source of power generation.
 
-This contains everything you need to run your app locally.
+**[🌐 Live Demo](https://nairapower-v3.vercel.app/)**
 
-View your app in AI Studio: https://ai.studio/apps/3e2014af-2f25-441f-af53-e89c0178b421
+---
 
-## Run Locally
+## Features
 
-**Prerequisites:**  Node.js
+* **Easy appliances selection.
+* **Integrated grid band cost.
+* **Easy source duration.
+* **Appliance quantity selection.
+* **Integrated AI feature.
 
+---
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+## Tech Stack
+
+* **React JS
+* **Styling:** Tailwind CSS
+* **Typescript
+* **Typography:** Google Fonts
+
+---
+
+## Project Purpose
+This project was created to tackle the problem of energy blindness and saving consumers of energy from burning unnecessary money on energy.
+
